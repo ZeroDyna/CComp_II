@@ -1,0 +1,3 @@
+/home/dalusion/Documents/universidad/ccompII/build/CMakeFiles/matriz.dir
+/home/dalusion/Documents/universidad/ccompII/build/CMakeFiles/edit_cache.dir
+/home/dalusion/Documents/universidad/ccompII/build/CMakeFiles/rebuild_cache.dir

@@ -1,0 +1,1 @@
+/usr/bin/c++ -rdynamic CMakeFiles/matriz.dir/matriz.cpp.o -o matriz 
