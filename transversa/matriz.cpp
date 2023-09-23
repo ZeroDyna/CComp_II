@@ -3,7 +3,7 @@ using namespace std;
 void transposed (int (*A)[4]){
 	int tmp;
 	for (int i = 0; i < 4 ; i++){
-		for (int j = 0; j <4 ; j++){
+		for (int j = i+1; j <4 ; j++){
 			tmp = (*(*(A + i) + j));
 			*(*(A+i)+j) = *(*(A+j)+i);
 			*(*(A+j)+i) = tmp;
@@ -19,6 +19,7 @@ int main (){
     for (int* p = *A; p < *(A + 4); p++) {
             cin >> *p ;
         }
+    cout << "La matriz original"<<  endl;
     for (int* q = *A; q < *(A + 4); q++) {
 			cout << *q<< " " ;
 			linea ++;
@@ -28,7 +29,8 @@ int main (){
 			}
 	}
 	transposed(A);
-
+	
+    cout << "La matriz transposed(transpuesta)"<< endl;
     for (int* r = *A; r < *(A + 4); r++) {
 			cout << *r<< " " ;
 			linea ++;
