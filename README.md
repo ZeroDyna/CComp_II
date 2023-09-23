@@ -6,6 +6,7 @@ Se subio solo el archivo cpp para la resolucion del ejercicio.
 
 ## 4ta practica 
 Otra forma de lograr que la funcion transposed funcione sin la necesidad de el entero tmp es la siguiente:
+
             *(*(A + i) + j) = *(*(A + i) + j) + *(*(A + j) + i);
             *(*(A + j) + i) = *(*(A + i) + j) - *(*(A + j) + i);
             *(*(A + i) + j) = *(*(A + i) + j) - *(*(A + j) + i);
