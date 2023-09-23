@@ -1,6 +1,6 @@
 #include<iostream>
 using namespace std;
-void transposed (int *A[4]){
+void transposed (int (*A)[4]){
 	int tmp;
 	for (int i = 0; i < 4 ; i++){
 		for (int j = 0; j <4 ; j++){
@@ -27,12 +27,10 @@ int main (){
 				linea = 0;
 			}
 	}
-	transposed((int **)A);
-for (int* p = *A; p < *(A + 4); p++) {
-            cin >> *p ;
-        }
-    for (int* q = *A; q < *(A + 4); q++) {
-			cout << *q<< " " ;
+	transposed(A);
+
+    for (int* r = *A; r < *(A + 4); r++) {
+			cout << *r<< " " ;
 			linea ++;
 			if (linea == 4){
 				cout << "\n";
