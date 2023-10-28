@@ -16,10 +16,10 @@ nodo<T>::nodo(T v, nodo<T>* n) {
 template <class T>
 class cola {
 private:
-	nodo <T>* inicio; //punteros al inicio de la cola genericos 
+	nodo <T>* inicio; //punteros al inicio y final o head y tail de la cola genericos 
 	nodo <T>* final;
 public:
-    cola() : inicio(nullptr), final(nullptr) {}
+    cola() : inicio(NULL), final(NULL) {}
     
 	bool empty() {
 		if (final == NULL) {
@@ -39,13 +39,17 @@ public:
 			final = n;
 		}
 	}
-	void pop() {
+	bool pop(T &valor) {
 		if (empty()) {
-			cout << "es un null" << endl;
+			return 0;
 		}
+		else{
+		valor = inicio->valor;
 		nodo<T>* tmp = inicio;
 		inicio = inicio->next;
 		delete tmp;
+		return 1;
+		}
 	}
 	void print() {
 		nodo<T>* presente = inicio;
@@ -56,26 +60,41 @@ public:
 
 	}
 	~cola() {
-		while (!empty()) {
-			pop();
-		}
+    nodo<T>* presente = inicio;
+    while (presente != NULL){
+    nodo<T>* futuro = presente->next;
+    delete presente;
+    presente = futuro;
+    }
+
 	}
 };
+
 int main() {
+    char valor_eliminado;
     cola<char> miCola;
- 
+    
+    miCola.push('a');
+    miCola.push('b');
+    
     if(miCola.empty()==0){
-    cout << "Elementos de la cola: \n";
+        cout << "Elementos de la cola: \n";
     }
     else 
-    cout << "No tiene elementos es un null"<< endl;
-    }
+        cout << "No tiene elementos es un null"<< endl;
+    
     miCola.print();
 
-	miCola.pop();
+	if(miCola.pop(valor_eliminado) == 0){
+	    cout << "el elemento no se ha eliminado" << endl;
+	}
+    else{
+	    cout<< "el elemento si se ha eliminado" <<endl;
+	    
+	}
 
     cout << "Elementos de la cola después del pop: \n";
     miCola.print();
 
     return 0;
-}
+} //para la siguiente tarea no usar new. delete, ni crear una coopia
