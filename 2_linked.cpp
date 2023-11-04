@@ -13,8 +13,9 @@ nodo<T>::nodo(T v, nodo<T>* n) {
 }
 template <class T>
 class linked {
-	nodo<T>* head = NULL;
+
 public:
+	nodo<T>* head = NULL;
 	void add(T valor);
 	void del(T valor);
 	bool find(T valor, nodo<T>*& pos);
@@ -23,16 +24,15 @@ public:
 };
 template <class T>
 bool linked<T>::find(T valor, nodo<T>*& pos) {
-	pos == NULL;
-	nodo<T>* p = head;
-	for (; p && p->valor < valor; pos = p, p = p->next) {
-		if (p && p->valor == valor) {
-			return 1;
-		}
-		else
-			return 0;
-	}
+    pos = nullptr;
+    nodo<T>* p = head;
+    while (p && p->valor < valor) {
+        pos = p;
+        p = p->next;
+    }
+    return p && p->valor == valor;
 }
+
 template <class T>
 void linked<T>::add(T valor) {
 	nodo<T>* pos;
@@ -46,7 +46,7 @@ void linked<T>::add(T valor) {
 }
 template <class T>
 void linked<T>::del(T valor) {
-	nodo<T>* pos, * tmp; //se declara dos variables de manera simultanea
+	nodo<T>* pos, * tmp; //se declara dos punteros de manera simultanea
 	if (find(valor, pos)) {
 		if (!pos) {
 			tmp = head;
@@ -79,12 +79,55 @@ linked<T>::~linked() {
 
 	}
 }
+
+template <class T>
+void merge(linked<T>& h1, linked<T>& h2) {
+    nodo<T>* p = h1.head;
+    nodo<T>* q = h2.head;
+    nodo<T>* r = NULL;
+    
+  
+    if (p && q) {
+         if (p->valor < q->valor) {
+            r = p;
+            p = p->next;
+        } else {
+            r = q;
+            q = q->next;
+        }
+        
+        h1.head = r;  
+        
+        while (p && q) {
+            if (p->valor < q->valor) {
+                r->next = p;
+                r = p;
+                p = p->next;
+            } else {
+                r->next = q;
+                r = q;
+                q = q->next;
+            }
+        }
+        
+        // mueve los nodos de p a q usando r cuando se termina una de las listas
+        if (p) {
+            r->next = p;
+        } else if (q) {
+            r->next = q;
+        }
+        
+        //h2 para que sea NULL
+        h2.head = NULL;
+    }
+}
+
 int main() {
 	linked<int> h1, h2;
-	h1.add(1);
 	h1.add(3);
-	h1.add(5);
 	h1.add(9);
+	h1.add(5);
+	h1.add(4);
 	h1.add(11);
 	h2.add(2);
 	h2.add(4);
@@ -94,5 +137,17 @@ int main() {
 	h1.print();
 	cout << "h2 seria" << endl;
 	h2.print();
+	merge(h1,h2);
+	cout << "despues de usar el merge" << endl;
+	cout << "h1 seria" << endl;
+	h1.print();
+	cout << "h2 sería" << endl;
+    if (h2.head == NULL) {
+        cout << "h2 es nulo" << endl;
+    } 
+    else {
+    h2.print();
+    }
+
 	return 0;
 }
