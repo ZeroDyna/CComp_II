@@ -14,14 +14,14 @@ nodo<T>::nodo(T v, nodo<T>* n) {
 template <class T>
 struct asc {
     T operator()(T x,T y){
-        return x > y;
+        return x < y;
     }
     
 };
 template<class T>
 struct des {
     T operator ()(T x , T y){
-    return x < y;
+    return x > y;
     }
 };
 
@@ -37,7 +37,7 @@ public:
 	~linked();
 };
 template <class T, class O>
-bool linked<T>::find(T valor, nodo<T>*& pos ) {
+bool linked<T,O>::find(T valor, nodo<T>*& pos ) {
     O op;
     pos = NULL;
     nodo<T>* p = head;
@@ -48,8 +48,8 @@ bool linked<T>::find(T valor, nodo<T>*& pos ) {
     return p && p->valor == valor;
 }
 
-template <class T>
-void linked<T>::add(T valor) {
+template <class T,class O>
+void linked<T, O>::add(T valor) {
 	nodo<T>* pos;
 	if (!find(valor, pos)) {
 		if (!pos) {
@@ -59,8 +59,8 @@ void linked<T>::add(T valor) {
 			pos->next = new nodo<T>(valor, pos->next);
 	}
 }
-template <class T>
-void linked<T>::del(T valor) {
+template <class T,class O>
+void linked<T,O>::del(T valor) {
 	nodo<T>* pos, * tmp; //se declara dos punteros de manera simultanea
 	if (find(valor, pos)) {
 		if (!pos) {
@@ -76,16 +76,16 @@ void linked<T>::del(T valor) {
 	}
 
 }
-template <class T>
-void linked<T>::print() {
+template <class T,class O>
+void linked<T,O>::print() {
 	nodo<T>* presente = head;
 	while (presente != NULL) {
 		cout << "valor actual " << presente->valor << endl;
 		presente = presente->next;
 	}
 }
-template<class T>
-linked<T>::~linked() {
+template<class T,class O>
+linked<T,O>::~linked() {
 	nodo<T>* presente = head;
 	while (presente != NULL) {
 		nodo<T>* futuro = presente->next;
@@ -97,7 +97,7 @@ linked<T>::~linked() {
 
 
 int main() {
-	linked<int, des<int> > h1;
+	linked<int, des<int>> h1;
 	h1.add(3);
 	h1.add(9);
 	h1.add(5);
